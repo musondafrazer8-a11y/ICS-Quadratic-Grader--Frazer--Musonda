@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadratic Equation Solver & Grade Converter</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Times New Roman',Segoe UI, Tahoma, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #484749 0%, #31538f 100%);
+            color: #323131;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.414);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, #2c3e50, #4a6491);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .instructions {
+            padding: 20px;
+            background-color: #839b70;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .instructions p {
+            margin-bottom: 10px;
+        }
+        
+        .app-container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0;
+        }
+        
+        .section {
+            flex: 1;
+            min-width: 300px;
+            padding: 25px;
+            border-right: 1px solid #e9ecef;
+        }
+        
+        .section:last-child {
+            border-right: none;
+        }
+        
+        h2 {
+            color: #383858;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3b5a6e;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #582368, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-reset {
+            background: linear-gradient(to right, #5d7628, #232b89);
+        }
+        
+        .results {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #25527475;
+            border-radius: 8px;
+            border-left: 4px solid #224b67;
+            display: none;
+        }
+        
+        .results h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .result-item {
+            margin-bottom: 10px;
+        }
+        
+        .grade-result {
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .grade-Aplus {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .grade-A {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .grade-Bplus {
+            background-color: #9b59b6;
+            color: white;
+        }
+        
+        .grade-B {
+            background-color: #f1c40f;
+            color: white;
+        }
+        
+        .grade-Cplus {
+            background-color: #e67e22;
+            color: white;
+        }
+        
+        .grade-C {
+            background-color: #426132;
+            color: white;
+        }
+        
+        .grade-D {
+            background-color: #da0b0b;
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .section {
+                flex: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Quadratic Equation Solver & Grade Converter</h1>
+            <p class="subtitle">Solve quadratic equations and convert scores to letter grades</p>
+        </header>
+        
+        <div class="instructions">
+            <p><strong>Instructions:</strong> Use the quadratic solver to find roots of equations in the form ax² + bx + c = 0, and the grade converter to get letter grades for scores between 0-100.</p>
+        </div>
+        
+        <div class="app-container">
+            <div class="section">
+                <h2>Quadratic Equation Solver</h2>
+                <p>Enter coefficients for equation: ax² + bx + c = 0</p>
+                
+                <div class="form-group">
+                    <label for="a">Coefficient a (must not be zero):</label>
+                    <input type="number" id="a" step="any" placeholder="Enter value for a">
+                    <div class="error" id="errorA">Please enter a valid number for a (cannot be zero)</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="b">Coefficient b:</label>
+                    <input type="number" id="b" step="any" placeholder="Enter value for b">
+                    <div class="error" id="errorB">Please enter a valid number for b</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="c">Coefficient c:</label>
+                    <input type="number" id="c" step="any" placeholder="Enter value for c">
+                    <div class="error" id="errorC">Please enter a valid number for c</div>
+                </div>
+                
+                <button class="btn" id="solveQuadratic">Solve Equation</button>
+                <button class="btn btn-reset" id="resetQuadratic">Reset</button>
+                
+                <div class="results" id="quadraticResults">
+                    <h3>Solution:</h3>
+                    <div class="result-item" id="discriminant"></div>
+                    <div class="result-item" id="nature"></div>
+                    <div class="result-item" id="roots"></div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Grade Converter</h2>
+                <p>Enter a score between 0 and 100 to get the corresponding letter grade</p>
+                
+                <div class="form-group">
+                    <label for="score">Score (0-100):</label>
+                    <input type="number" id="score" min="0" max="100" placeholder="Enter score between 0 and 100">
+                    <div class="error" id="errorScore">Please enter a valid score between 0 and 100</div>
+                </div>
+                
+                <button class="btn" id="convertGrade">Convert to Grade</button>
+                <button class="btn btn-reset" id="resetGrade">Reset</button>
+                
+                <div class="results" id="gradeResults">
+                    <h3>Grade Result:</h3>
+                    <div class="result-item" id="gradeOutput"></div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>ICT251 - Web Technologies Assignment | Quadratic Solver & Grade Converter</p>
+        </footer>
+    </div>
+
+    <script>
+        // DOM Elements
+        const quadraticForm = {
+            a: document.getElementById('a'),
+            b: document.getElementById('b'),
+            c: document.getElementById('c'),
+            solveBtn: document.getElementById('solveQuadratic'),
+            resetBtn: document.getElementById('resetQuadratic'),
+            results: document.getElementById('quadraticResults'),
+            discriminant: document.getElementById('discriminant'),
+            nature: document.getElementById('nature'),
+            roots: document.getElementById('roots'),
+            errors: {
+                a: document.getElementById('errorA'),
+                b: document.getElementById('errorB'),
+                c: document.getElementById('errorC')
+            }
+        };
+        
+        const gradeForm = {
+            score: document.getElementById('score'),
+            convertBtn: document.getElementById('convertGrade'),
+            resetBtn: document.getElementById('resetGrade'),
+            results: document.getElementById('gradeResults'),
+            output: document.getElementById('gradeOutput'),
+            error: document.getElementById('errorScore')
+        };
+        
+        // Quadratic Equation Solver
+        quadraticForm.solveBtn.addEventListener('click', function() {
+            // Reset errors
+            resetErrors(quadraticForm.errors);
+            
+            // Get values
+            const a = parseFloat(quadraticForm.a.value);
+            const b = parseFloat(quadraticForm.b.value);
+            const c = parseFloat(quadraticForm.c.value);
+            
+            // Validate inputs
+            let isValid = true;
+            
+            if (isNaN(a) || a === 0) {
+                quadraticForm.errors.a.style.display = 'block';
+                isValid = false;
+            }
+            
+            if (isNaN(b)) {
+                quadraticForm.errors.b.style.display = 'block';
+                isValid = false;
+            }
+            
+            if (isNaN(c)) {
+                quadraticForm.errors.c.style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Calculate discriminant
+            const discriminant = b * b - 4 * a * c;
+            
+            // Determine nature of roots and calculate roots
+            let nature, root1, root2;
+            
+            if (discriminant > 0) {
+                nature = "Two distinct real roots";
+                root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+            } else if (discriminant === 0) {
+                nature = "One real repeated root";
+                root1 = -b / (2 * a);
+                root2 = root1;
+            } else {
+                nature = "Two complex conjugate roots";
+                const realPart = -b / (2 * a);
+                const imaginaryPart = Math.sqrt(-discriminant) / (2 * a);
+                root1 = `${realPart.toFixed(2)} + ${imaginaryPart.toFixed(2)}i`;
+                root2 = `${realPart.toFixed(2)} - ${imaginaryPart.toFixed(2)}i`;
+            }
+            
+            // Display results
+            quadraticForm.discriminant.textContent = `Discriminant (D) = ${discriminant}`;
+            quadraticForm.nature.textContent = `Nature of roots: ${nature}`;
+            
+            if (discriminant >= 0) {
+                quadraticForm.roots.textContent = `Roots: x₁ = ${root1.toFixed(4)}, x₂ = ${root2.toFixed(4)}`;
+            } else {
+                quadraticForm.roots.textContent = `Roots: x₁ = ${root1}, x₂ = ${root2}`;
+            }
+            
+            quadraticForm.results.style.display = 'block';
+        });
+        
+        // Grade Converter
+        gradeForm.convertBtn.addEventListener('click', function() {
+            // Reset error
+            gradeForm.error.style.display = 'none';
+            gradeForm.output.className = 'grade-result';
+            
+            // Get value
+            const score = parseInt(gradeForm.score.value);
+            
+            // Validate input
+            if (isNaN(score) || score < 0 || score > 100) {
+                gradeForm.error.style.display = 'block';
+                return;
+            }
+            
+            // Determine grade
+            let grade, gradeClass;
+            
+            if (score >= 85) {
+                grade = "A+";
+                gradeClass = "grade-Aplus";
+            } else if (score >= 75) {
+                grade = "A";
+                gradeClass = "grade-A";
+            } else if (score >= 65) {
+                grade = "B+";
+                gradeClass = "grade-Bplus";
+            } else if (score >= 60) {
+                grade = "B";
+                gradeClass = "grade-B";
+            } else if (score >= 55) {
+                grade = "C+";
+                gradeClass = "grade-Cplus";
+            } else if (score >= 50) {
+                grade = "C";
+                gradeClass = "grade-C";
+            } else {
+                grade = "D";
+                gradeClass = "grade-D";
+            }
+            
+            // Display result
+            gradeForm.output.textContent = `Score ${score} → Grade ${grade}`;
+            gradeForm.output.classList.add(gradeClass);
+            gradeForm.results.style.display = 'block';
+        });
+        
+        // Reset Functions
+        quadraticForm.resetBtn.addEventListener('click', function() {
+            quadraticForm.a.value = '';
+            quadraticForm.b.value = '';
+            quadraticForm.c.value = '';
+            quadraticForm.results.style.display = 'none';
+            resetErrors(quadraticForm.errors);
+        });
+        
+        gradeForm.resetBtn.addEventListener('click', function() {
+            gradeForm.score.value = '';
+            gradeForm.results.style.display = 'none';
+            gradeForm.error.style.display = 'none';
+            gradeForm.output.className = 'grade-result';
+        });
+        
+        // Helper function to reset errors
+        function resetErrors(errorsObj) {
+            for (const key in errorsObj) {
+                if (errorsObj.hasOwnProperty(key)) {
+                    errorsObj[key].style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
