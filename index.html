@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quadratic Equation Solver & Grade Converter</title>
-    <style>
-        * {
+    <style>//initial structure
+         *{
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -376,7 +376,7 @@
             }
             
             quadraticForm.results.style.display = 'block';
-        });
+        });//quadratic solver done
         
         // Grade Converter
         gradeForm.convertBtn.addEventListener('click', function() {
@@ -439,7 +439,7 @@
             gradeForm.results.style.display = 'none';
             gradeForm.error.style.display = 'none';
             gradeForm.output.className = 'grade-result';
-        });
+        });//grading done
         
         // Helper function to reset errors
         function resetErrors(errorsObj) {
@@ -451,4 +451,5 @@
         }
     </script>
 </body>
+
 </html>
